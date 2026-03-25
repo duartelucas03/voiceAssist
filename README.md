@@ -57,9 +57,6 @@ Todas as dependências estão nas células acima do bloco que são utilizadas.
 
 Obtenha sua chave em: https://console.groq.com/keys
 
-```python
-os.environ['GROQ_API_KEY'] = "sua_chave_aqui"
-```
 
 ## 📄 Licença
 
