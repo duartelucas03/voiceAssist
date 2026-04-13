@@ -1,63 +1,112 @@
-# 🎤 Assistente de Voz Multi-Idiomas com Whisper e Groq
+# VoiceAssist
 
-Um assistente de voz inteligente que captura áudio, transcreve usando Whisper, processa a solicitação com IA via Groq e responde sintetizando a voz.
+Assistente de voz em Streamlit com entrada por audio ou texto.
 
-## 🚀 Funcionalidades
+O fluxo da aplicacao e:
+1. Capturar audio (ou texto digitado).
+2. Transcrever com Whisper.
+3. Gerar resposta com Groq (Llama 3.3 70B).
+4. Converter resposta em voz com gTTS.
 
-- **Gravação de Áudio**: Captura áudio do microfone em tempo real
-- **Transcrição Automática**: Reconhece fala em múltiplos idiomas com Whisper
-- **IA Inteligente**: Processa requisições via API Groq (modelo Llama 3.3)
-- **Síntese de Voz**: Converte resposta em áudio natural com gTTS
-- **Multi-idioma**: Suporta diversos idiomas para entrada e saída
+## Funcionalidades
 
-## 📋 Pré-requisitos
+- Conversa por voz com transcricao automatica.
+- Conversa por texto na mesma interface.
+- Resposta em audio reproduzida no chat.
+- Suporte a multiplos idiomas na interface: `pt`, `en`, `es`, `fr`, `de`.
+- Historico de conversa na sessao e botao para limpar chat.
 
-- Python 3.8+
-- Microfone funcional
-- API Key do Groq (obtenha em https://console.groq.com/keys)
+## Stack
 
-## 📦 Dependências
+- Streamlit
+- OpenAI Whisper (local)
+- Groq API
+- gTTS
+- python-dotenv
 
-```bash
-Todas as dependências estão nas células acima do bloco que são utilizadas.
+## Requisitos
+
+- Python 3.10+ (recomendado)
+- Chave de API da Groq: https://console.groq.com/keys
+
+## Instalacao
+
+1. Clone o repositorio e entre na pasta do projeto.
+2. Crie e ative um ambiente virtual.
+3. Instale as dependencias.
+
+### Windows (PowerShell)
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
 ```
 
-## ⚙️ Como Usar
+## Configuracao
 
-1. Configure sua API Key do Groq no notebook
-2. Execute as células na sequência:
-   - Gravação de áudio (5 segundos padrão)
-   - Transcrição com Whisper
-   - Integração com Groq para processar texto
-   - Síntese e reprodução da resposta em voz
+Crie um arquivo `.env` na raiz com:
 
-## 🛫 Próximos Passos
+```env
+GROQ_API_KEY=sua_chave_aqui
+```
 
-- [ ] Implementar interface gráfica
-- [ ] Adicionar suporte a diferentes modelos de IA via seleção dinâmica
-- [ ] Salvar histórico de conversas em banco de dados
-- [ ] Otimizar tempo de resposta com cache
-- [ ] Implementar detecção de idioma automática
-- [ ] Adicionar tratamento robusto de erros
-- [ ] Criar CLI para uso em terminal
+## Executar
 
-## 💡 Possibilidades de Expansão
+```bash
+streamlit run app.py
+```
 
-- **Assistente Pessoal**: Integrar com calendário, tarefas e emails
-- **Suporte a Plugins**: Sistema de extensões para funcionalidades customizadas
-- **Web App**: Deploy como API REST com frontend
-- **Voice Commands**: Configurar comandos específicos de voz para ações locais
-- **Histórico Inteligente**: Memória de conversa com contexto persistente
-- **Integração com APIs**: Conectar a serviços externos (previsão, notícias, etc.)
-- **Offline Mode**: Utilizar modelos locais para privacidade
-- **Multilíngue Avançado**: Tradução automática entre idiomas
+Abra o endereco exibido no terminal (geralmente `http://localhost:8501`).
 
+## Como usar
 
-## 🔧 Configuração da API
+1. Escolha o idioma na barra lateral.
+2. Aba Voz: clique no gravador, fale e aguarde a transcricao/resposta.
+3. Aba Texto: digite a mensagem e clique em `Enviar`.
+4. Use `Limpar conversa` para reiniciar o chat da sessao.
 
-Obtenha sua chave em: https://console.groq.com/keys
+## Demonstracao
 
+### Tela principal
 
-## 📄 Licença
+![Tela principal do VoiceAssist](assets/chat.png)
 
-Este projeto é um exercício educacional da DIO em parceria com Bradesco.
+### Selecao de idiomas
+
+![Selecao de idiomas no sidebar](assets/idiomas.png)
+
+### Conversa por voz
+
+![Fluxo de conversa por voz](assets/voz.png)
+
+### Conversa por texto
+
+![Fluxo de conversa por texto](assets/texto.png)
+
+## Estrutura do projeto
+
+```text
+voiceAssist/
+   app.py
+   requirements.txt
+   README.md
+   assets/
+```
+
+## Troubleshooting
+
+- Erro `GROQ_API_KEY nao encontrada no .env`:
+   - Verifique se o arquivo `.env` esta na raiz e com a variavel correta.
+- Erro de transcricao/FFmpeg:
+   - Garanta que o FFmpeg esteja instalado e no `PATH`.
+   - Teste com `ffmpeg -version` no terminal.
+- Primeira execucao lenta:
+   - O Whisper pode baixar/carregar modelo na primeira vez.
+
+## Melhorias futuras
+
+- Streaming de resposta em tempo real.
+- Selecao de modelo Groq pela interface.
+- Persistencia de historico em banco.
+- Tratamento de erros mais detalhado para API e audio.
